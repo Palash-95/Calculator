@@ -35,13 +35,17 @@ for (let node of numbers) {
     node.addEventListener("click", addNumber)
 }
 function addNumber(e){
-    let regex5 = /\d+[-,+,*,/]*$/;
+    let regex5 = /\d*\.*[-,+,*,/]*$/;
     if(!regex5.test(display.textContent)){
         display.textContent = "";
     }
     if(firstNumber === null){
         display.textContent = '';
         firstNumber = e.target.textContent;
+    }
+    if(e.target.textContent === '.'){
+        let regex = /\d*\.\d*$/;
+        if(regex.test(display.textContent)){return}
     }
     display.textContent += e.target.textContent;
 }
