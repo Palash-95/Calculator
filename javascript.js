@@ -30,6 +30,7 @@ const numbers = document.querySelectorAll(".numbers > button");
 const equalButton = document.querySelector("#equal");
 const clearButton = document.querySelector("#clear");
 const number = document.querySelector('.numbers');
+const backspace = document.querySelector('#backspace');
 
 for (let node of numbers) {
     node.addEventListener("click", addNumber)
@@ -58,6 +59,7 @@ for (let operator of operators){
 }
 equalButton.addEventListener("click",calculate2);
 clearButton.addEventListener("click",() => display.textContent = "");
+backspace.addEventListener('click',() => display.textContent = display.textContent.slice(0,-1));
 
 function calculate2(e){
     calculate(e);
@@ -73,14 +75,14 @@ function calculate(e){
         display.textContent = "";
     }
 
-    let regex = /\d+[-,+,*,/]\d+/;
-    if(!regex.test(display.textContent)){
+    let regex = /^[-,+]*\d*\.*\d+$/;
+    if(regex.test(display.textContent)){
         firstNumber = display.textContent;
         console.log("firstNumber = " + firstNumber);
         operator = e.target.id;
     }
     else{
-        let regex2 = /-\d+[-,+,*,/]\d+/;
+        let regex2 = /^[-,+]\d*\.*\d+/;
         if(regex2.test(display.textContent)){
             secondNumber = display.textContent.split(/[-,+,*,/]/)[2];
         }
