@@ -103,3 +103,12 @@ function calculate(e){
         display.textContent += e.target.textContent;
     }
 }
+input = document.querySelector('input');
+input.addEventListener('keydown',(e) => console.log(e.keyCode))
+
+document.addEventListener('keydown',(e) => {
+    let key = document.querySelector(`button[data-key="${e.keyCode}"]`)
+    console.log(e.keyCode);
+    console.log(key);
+    key.click();
+})
