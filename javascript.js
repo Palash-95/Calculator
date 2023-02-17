@@ -1,96 +1,72 @@
-function add(a,b){
-    return a + b;
-}
-function substract(a,b){
-    return a - b;
-}
-function multiply(a,b){
-    return a * b;
-}
-function divide(a,b){
-    if(b === 0){
-        return "Can't divide by 0!"
-    }
-    else{
-        return a / b;
-    }
-}
-
-function operate(operator,a,b){
-    switch (operator){
-        case "add": return add(a,b);
-        case "substract": return substract(a,b);
-        case "multiply": return multiply(a,b);
-        case "divide": return divide(a,b);
-    }
-}
-const display = document.querySelector("#display");
+const display = document.querySelector("#display p");
 const operators = document.querySelectorAll(".operator > button");
-const numbers = document.querySelectorAll(".numbers > button");
+const numbers = document.querySelectorAll(".number");
 const equalButton = document.querySelector("#equal");
 const clearButton = document.querySelector("#clear");
-const number = document.querySelector('.numbers');
 const backspace = document.querySelector('#backspace');
+
+let firstNumber, operator, secondNumber;
 
 for (let node of numbers) {
     node.addEventListener("click", addNumber)
 }
+
+for (let operator of operators){
+    operator.addEventListener("click",calculate)
+}
+
+equalButton.addEventListener("click",calculate);
+clearButton.addEventListener("click",() => display.textContent = "");
+backspace.addEventListener('click',() => display.textContent = display.textContent.slice(0,-1));
+
+document.addEventListener('keydown',(e) => {
+    let key = document.querySelector(`button[data-key="${e.keyCode}"]`)
+    key.click();
+})
+
 function addNumber(e){
-    let regex5 = /\d*\.*[-,+,*,/]*$/;
-    if(!regex5.test(display.textContent)){
+    let regex = /\d*\.*[-,+,*,/]*$/;
+    if(!regex.test(display.textContent)){
         display.textContent = "";
     }
-    if(firstNumber === null){
+    else if(firstNumber === null){
         display.textContent = '';
         firstNumber = e.target.textContent;
     }
-    if(e.target.textContent === '.'){
-        let regex = /\d*\.\d*$/;
-        if(regex.test(display.textContent)){return}
+    else if(e.target.textContent === '.'){
+        let regex2 = /\d*\.\d*$/;
+        if(regex2.test(display.textContent)){return}
     }
     display.textContent += e.target.textContent;
 }
 
-let firstNumber ;
-let operator;
-let secondNumber;
-for (let operator of operators){
-    operator.addEventListener("click",calculate)
-}
-equalButton.addEventListener("click",calculate2);
-clearButton.addEventListener("click",() => display.textContent = "");
-backspace.addEventListener('click',() => display.textContent = display.textContent.slice(0,-1));
-
-function calculate2(e){
-    calculate(e);
-    
-    }
-
 function calculate(e){
-    let regex3 = /[-,+,*,/]$/;
-    if(regex3.test(display.textContent)){return};
+    let regex = /[-,+,*,/,.]$/;
+    if(regex.test(display.textContent)){return};
 
-    let regex5 = /\d+$/;
-    if(!regex5.test(display.textContent)){
+    let regex2 = /\d+$/;
+    if(!regex2.test(display.textContent)){
         display.textContent = "";
     }
 
-    let regex = /^[-,+]*\d*\.*\d+$/;
-    if(regex.test(display.textContent)){
+    let regex3 = /[/]0\.*0*$/;
+    if(regex3.test(display.textContent)){
+        display.textContent = "Can't divide by 0!";
+        return firstNumber = null;
+    }
+
+    let regex4 = /^[-,+]*\d*\.*\d*$/;
+    if(regex4.test(display.textContent)){
         firstNumber = display.textContent;
-        console.log("firstNumber = " + firstNumber);
         operator = e.target.id;
     }
     else{
-        let regex2 = /^[-,+]\d*\.*\d+/;
-        if(regex2.test(display.textContent)){
+        let regex5 = /^[-,+]\d*\.*\d+/;
+        if(regex5.test(display.textContent)){
             secondNumber = display.textContent.split(/[-,+,*,/]/)[2];
         }
         else{secondNumber = display.textContent.split(/[-,+,*,/]/)[1];}
-        console.log("operator = " + operator);
-        console.log("firstNumber = " + firstNumber);
-        console.log("secondNumber = " + secondNumber);
-        console.log(e.target.id);
+
         let result = operate(operator,+firstNumber,+secondNumber);
         display.textContent = parseFloat(result.toFixed(4));
     }
@@ -103,12 +79,25 @@ function calculate(e){
         display.textContent += e.target.textContent;
     }
 }
-input = document.querySelector('input');
-input.addEventListener('keydown',(e) => console.log(e.keyCode))
 
-document.addEventListener('keydown',(e) => {
-    let key = document.querySelector(`button[data-key="${e.keyCode}"]`)
-    console.log(e.keyCode);
-    console.log(key);
-    key.click();
-})
+function operate(operator,a,b){
+    switch (operator){
+        case "add": return add(a,b);
+        case "substract": return substract(a,b);
+        case "multiply": return multiply(a,b);
+        case "divide": return divide(a,b);
+    }
+}
+
+function add(a,b){
+    return a + b;
+}
+function substract(a,b){
+    return a - b;
+}
+function multiply(a,b){
+    return a * b;
+}
+function divide(a,b){
+    return a / b;
+}

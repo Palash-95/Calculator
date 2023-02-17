@@ -9,31 +9,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="display"></div>
-    <div class="numbers">
-        <button data-key="97">1</button>
-        <button data-key="98">2</button>
-        <button data-key="99">3</button>
-        <button data-key="100">4</button>
-        <button data-key="101">5</button>
-        <button data-key="102">6</button>
-        <button data-key="103">7</button>
-        <button data-key="104">8</button>
-        <button data-key="105">9</button>
-        <button data-key="96">0</button>
-        <button data-key="110">.</button>
-    </div>
-    <div class="operator">
-        <button data-key="107" id="add">+</button>
-        <button data-key="109" id="substract">-</button>
-        <button data-key="106" id="multiply">*</button>
-        <button data-key="111" id="divide">/</button>
-    </div>
-    <div>
-        <button data-key="13" id="equal">=</button>
-        <button data-key="8" id="backspace">C</button>
-        <button data-key="16" id="clear">Clear</button>
-    </div>
-    <input type="text">
+    <main>
+        <div id="display">
+            <p></p>
+        </div>
+        <div id="firstContainer">
+            <div id="numbers">
+                <button class="number" data-key="97">1</button>
+                <button class="number" data-key="98">2</button>
+                <button class="number" data-key="99">3</button>
+                <button class="number" data-key="100">4</button>
+                <button class="number" data-key="101">5</button>
+                <button class="number" data-key="102">6</button>
+                <button class="number" data-key="103">7</button>
+                <button class="number" data-key="104">8</button>
+                <button class="number" data-key="105">9</button>
+                <button class="number" data-key="96">0</button>
+                <button class="number" data-key="110">.</button>
+                <button data-key="8" id="backspace">C</button>
+            </div>
+            <div class="operator">
+                <button data-key="107" id="add">+</button>
+                <button data-key="109" id="substract">-</button>
+                <button data-key="106" id="multiply">*</button>
+                <button data-key="111" id="divide">/</button>
+            </div>
+        </div>
+        <div id="secondContainer">
+            <button data-key="13" id="equal">=</button>
+            <button data-key="16" id="clear">Clear</button>
+        </div>
+    </main>
 </body>
 </html>
